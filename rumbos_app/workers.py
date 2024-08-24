@@ -164,7 +164,6 @@ class DataProcessor:
         self.area = None
         self.paragraph = ""
         self.output_file_path = output_file_path
-        print(self.csv_file)
 
     def read_csv(self):
         self.data = pd.read_csv(self.csv_file)

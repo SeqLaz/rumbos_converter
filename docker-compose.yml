@@ -1,0 +1,10 @@
+services:
+  pyside6-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-pyside6-app
+    container_name: pyside6-builder
+    volumes:
+      - ./output:/app/dist
+    command: pyside6-deploy --output dist rumbos_app/rumbos_generator.py
