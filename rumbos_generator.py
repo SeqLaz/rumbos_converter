@@ -117,11 +117,9 @@ class MainWindow(QMainWindow):
             self.ui.actionClear.setDisabled(False)
 
     def generateRumbos(self):
-        print(self.coordinate_csv)
         self.file_name_file_csv = os.path.splitext(
             os.path.basename(self.coordinate_csv)
         )[0]
-        print(self.file_name_file_csv)
         self.target_dir = Path(tempfile.mkdtemp())
         self.target_names = {
             "rumbos": f"rumbos_{self.file_name_file_csv}.csv",
@@ -129,7 +127,6 @@ class MainWindow(QMainWindow):
             "web_map": f"web_map_{self.file_name_file_csv}.html",
             "plot": f"plot_{self.file_name_file_csv}.png",
         }
-        print(self.target_dir)
 
         self.rumbos_output_file = os.path.join(
             self.target_dir, self.target_names["rumbos"]
@@ -138,8 +135,6 @@ class MainWindow(QMainWindow):
             self.coordinate_csv, self.rumbos_output_file
         )
         self.rumbos_table_generated.generate_rumbos()
-        print(self.rumbos_output_file)
-        print(self.rumbos_table_generated)
 
         with open(self.rumbos_output_file, "r") as csv_f:
             reader = csv.reader(csv_f)
@@ -157,7 +152,6 @@ class MainWindow(QMainWindow):
         )
         self.generate_processed_paragraph.process_data()
         self.generate_processed_paragraph.save_to_file()
-        print(self.description_output_file)
 
         # Generate Web Map location
         self.csr_origin = self.ui.crs_tedit.text()
@@ -168,7 +162,6 @@ class MainWindow(QMainWindow):
             self.coordinate_csv, self.csr_origin, self.web_map_output_file
         )
         self.generate_web_map.generate_map()
-        print(self.web_map_output_file)
 
         self.ui.coordinate_table.repaint()
         self.ui.rumbos_table.repaint()
@@ -177,8 +170,6 @@ class MainWindow(QMainWindow):
 
         self.plot = GenerateGraph(self.coordinate_csv, self.plot_output_file)
         self.plot.generate()
-        print(self.plot)
-        print(self.plot_output_file)
         self.pixmap = QPixmap(self.plot_output_file)
         self.ui.graph_label.setPixmap(self.pixmap)
 
@@ -200,7 +191,6 @@ class MainWindow(QMainWindow):
         file_name = ["rumbos", "description", "web_map", "plot"]
 
         if self.file_path_to_save:
-            print(self.file_path_to_save)
             for source_file, name_file in zip(list_files_to_save, file_name):
                 shutil.copy(
                     source_file,
@@ -216,7 +206,6 @@ class MainWindow(QMainWindow):
             )
 
     def clearAll(self):
-        print("Clear Button Clicked")
         self.coordinate_csv = None
         self.target_dir = None
 
